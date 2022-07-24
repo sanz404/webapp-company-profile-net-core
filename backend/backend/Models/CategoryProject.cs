@@ -9,34 +9,23 @@ using System.Threading.Tasks;
 namespace Backend.Models
 {
     [Index(nameof(Name))]
-    [Index(nameof(Phone))]
-    [Index(nameof(Email))]
-    [Index(nameof(Website))]
     [Index(nameof(CreatedAt))]
     [Index(nameof(UpdatedAt))]
-    public class Contact
+    public class CategoryProject
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(64)")]
+        [Column(TypeName = "varchar(191)")]
         public string Name { get; set; }
 
-        [Column(TypeName = "varchar(64)")]
-        public string Email { get; set; }
-
-        [Column(TypeName = "varchar(64)")]
-        public string Phone { get; set; }
-
-        [Column(TypeName = "varchar(64)")]
-        public string Website { get; set; }
-
         [Column(TypeName = "text")]
-        public string Address { get; set; }
+        public string Description { get; set; }
+
+        public virtual ICollection<Project> Projects { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -8,35 +9,37 @@ using System.Threading.Tasks;
 
 namespace Backend.Models
 {
-    [Index(nameof(Name))]
-    [Index(nameof(Phone))]
-    [Index(nameof(Email))]
-    [Index(nameof(Website))]
+    [Index(nameof(UserId))]
+    [Index(nameof(Subject))]
+    [Index(nameof(SortContent))]
+    [Index(nameof(ReadedAt))]
     [Index(nameof(CreatedAt))]
     [Index(nameof(UpdatedAt))]
-    public class Contact
+    public class Notification
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
+        [DisplayName("User")]
+        public long UserId { get; set; }
+        public virtual User User { get; set; }
+
         [Required]
         [Column(TypeName = "varchar(64)")]
-        public string Name { get; set; }
+        public string Subject { get; set; }
 
-        [Column(TypeName = "varchar(64)")]
-        public string Email { get; set; }
+        [Required]
+        [Column(TypeName = "varchar(191)")]
+        public string SortContent { get; set; }
 
-        [Column(TypeName = "varchar(64)")]
-        public string Phone { get; set; }
-
-        [Column(TypeName = "varchar(64)")]
-        public string Website { get; set; }
-
+        [Required]
         [Column(TypeName = "text")]
-        public string Address { get; set; }
+        public string FullContent { get; set; }
+
+        public DateTime ReadedAt { get; set; }
+
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
     }
 }

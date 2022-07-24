@@ -8,13 +8,10 @@ using System.Threading.Tasks;
 
 namespace Backend.Models
 {
-    [Index(nameof(Name))]
-    [Index(nameof(Phone))]
-    [Index(nameof(Email))]
-    [Index(nameof(Website))]
+    [Index(nameof(KeyName))]
     [Index(nameof(CreatedAt))]
     [Index(nameof(UpdatedAt))]
-    public class Contact
+    public class Content
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,21 +19,13 @@ namespace Backend.Models
 
         [Required]
         [Column(TypeName = "varchar(64)")]
-        public string Name { get; set; }
+        public string KeyName { get; set; }
 
-        [Column(TypeName = "varchar(64)")]
-        public string Email { get; set; }
-
-        [Column(TypeName = "varchar(64)")]
-        public string Phone { get; set; }
-
-        [Column(TypeName = "varchar(64)")]
-        public string Website { get; set; }
-
+        [Required]
         [Column(TypeName = "text")]
-        public string Address { get; set; }
+        public string KeyValue { get; set; }
+
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
     }
 }

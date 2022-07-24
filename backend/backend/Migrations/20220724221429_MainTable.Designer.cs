@@ -3,15 +3,17 @@ using System;
 using Backend.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Backend.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20220724221429_MainTable")]
+    partial class MainTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -328,38 +330,6 @@ namespace Backend.Migrations
                     b.ToTable("Contact");
                 });
 
-            modelBuilder.Entity("Backend.Models.Content", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("KeyName")
-                        .IsRequired()
-                        .HasColumnType("varchar(64)");
-
-                    b.Property<string>("KeyValue")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedAt");
-
-                    b.HasIndex("KeyName");
-
-                    b.HasIndex("UpdatedAt");
-
-                    b.ToTable("Content");
-                });
-
             modelBuilder.Entity("Backend.Models.Country", b =>
                 {
                     b.Property<long>("Id")
@@ -459,6 +429,9 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long?>("CategoryFaqId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
@@ -479,6 +452,8 @@ namespace Backend.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryFaqId");
 
                     b.HasIndex("CategoryId");
 
@@ -902,8 +877,12 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Faq", b =>
                 {
-                    b.HasOne("Backend.Models.CategoryFaq", "Category")
+                    b.HasOne("Backend.Models.CategoryFaq", null)
                         .WithMany("Faqs")
+                        .HasForeignKey("CategoryFaqId");
+
+                    b.HasOne("Backend.Models.CategoryArticle", "Category")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

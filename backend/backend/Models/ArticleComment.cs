@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -8,35 +9,28 @@ using System.Threading.Tasks;
 
 namespace Backend.Models
 {
-    [Index(nameof(Name))]
-    [Index(nameof(Phone))]
-    [Index(nameof(Email))]
-    [Index(nameof(Website))]
+    [Index(nameof(UserId))]
+    [Index(nameof(ArticleId))]
     [Index(nameof(CreatedAt))]
     [Index(nameof(UpdatedAt))]
-    public class Contact
+    public class ArticleComment
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [Required]
-        [Column(TypeName = "varchar(64)")]
-        public string Name { get; set; }
+        [DisplayName("User")]
+        public long UserId { get; set; }
+        public virtual User User { get; set; }
 
-        [Column(TypeName = "varchar(64)")]
-        public string Email { get; set; }
-
-        [Column(TypeName = "varchar(64)")]
-        public string Phone { get; set; }
-
-        [Column(TypeName = "varchar(64)")]
-        public string Website { get; set; }
+        [DisplayName("Article")]
+        public long ArticleId { get; set; }
+        public virtual Article Article { get; set; }
 
         [Column(TypeName = "text")]
-        public string Address { get; set; }
+        public string Description { get; set; }
+
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
     }
 }
