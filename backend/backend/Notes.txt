@@ -1,0 +1,5 @@
+﻿# Create Migration
+dotnet ef migrations add [XXX]
+
+# Migrate Datbase
+dotnet ef database update

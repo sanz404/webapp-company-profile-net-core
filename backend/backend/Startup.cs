@@ -1,7 +1,9 @@
+using Backend.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +28,12 @@ namespace Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<MainContext>(options => 
+                options
+                .UseNpgsql(Configuration.GetConnectionString("MainContext"))
+                .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
+                .EnableSensitiveDataLogging()
+           );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
