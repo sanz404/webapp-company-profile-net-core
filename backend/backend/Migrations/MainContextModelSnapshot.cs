@@ -50,6 +50,9 @@ namespace Backend.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("varchar(64)");
 
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("varchar(191)");

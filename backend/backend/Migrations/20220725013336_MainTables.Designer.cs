@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20220724222209_FixTable")]
-    partial class FixTable
+    [Migration("20220725013336_MainTables")]
+    partial class MainTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,6 +51,9 @@ namespace Backend.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("varchar(64)");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Title")
                         .IsRequired()

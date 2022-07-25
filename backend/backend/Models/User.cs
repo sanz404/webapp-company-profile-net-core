@@ -21,6 +21,14 @@ namespace Backend.Models
     [Index(nameof(UpdatedAt))]
     public class User
     {
+        public User()
+        {
+            this.IsAdmin = false;
+            this.Status = false;
+            this.CreatedAt = DateTime.Now;
+            this.UpdatedAt = DateTime.Now;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }

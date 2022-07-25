@@ -16,6 +16,12 @@ namespace Backend.Models
     [Index(nameof(UpdatedAt))]
     public class Contact
     {
+        public Contact()
+        {
+            this.CreatedAt = DateTime.Now;
+            this.UpdatedAt = DateTime.Now;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }

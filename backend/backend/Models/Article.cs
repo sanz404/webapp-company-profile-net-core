@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace Backend.Models
 {
     [Index(nameof(UserId))]
@@ -18,6 +19,13 @@ namespace Backend.Models
     [Index(nameof(UpdatedAt))]
     public class Article
     {
+        public Article()
+        {
+            this.CreatedAt = DateTime.Now;
+            this.UpdatedAt = DateTime.Now;
+            this.IsPublished = false;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
@@ -48,4 +56,8 @@ namespace Backend.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
+
+    
 }
+
+

@@ -19,6 +19,15 @@ namespace Backend.Models
     [Index(nameof(UpdatedAt))]
     public class EmailVerification
     {
+        public EmailVerification()
+        {
+            this.EmailConfirmed = false;
+            this.IsExpired = false;
+            this.ExpiredAt = DateTime.Now;
+            this.CreatedAt = DateTime.Now;
+            this.UpdatedAt = DateTime.Now;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }

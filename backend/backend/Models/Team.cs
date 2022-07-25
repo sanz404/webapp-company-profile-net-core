@@ -16,6 +16,13 @@ namespace Backend.Models
     [Index(nameof(UpdatedAt))]
     public class Team
     {
+        public Team()
+        {
+            this.IsPublished = false;
+            this.CreatedAt = DateTime.Now;
+            this.UpdatedAt = DateTime.Now;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }

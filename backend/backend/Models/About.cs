@@ -14,6 +14,13 @@ namespace Backend.Models
     [Index(nameof(UpdatedAt))]
     public class About
     {
+        public About()
+        {
+            this.CreatedAt = DateTime.Now;
+            this.UpdatedAt = DateTime.Now;
+            this.IsPublished = false;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
@@ -30,7 +37,7 @@ namespace Backend.Models
         [Column(TypeName = "text")]
         public string Description { get; set; }
 
-
+        public Boolean IsPublished { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }

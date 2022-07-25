@@ -13,6 +13,12 @@ namespace Backend.Models
     [Index(nameof(UpdatedAt))]
     public class CategoryFaq
     {
+        public CategoryFaq()
+        {
+            this.CreatedAt = DateTime.Now;
+            this.UpdatedAt = DateTime.Now;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }

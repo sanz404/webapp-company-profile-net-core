@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Backend.Migrations
 {
-    public partial class MainTable : Migration
+    public partial class MainTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,6 +17,7 @@ namespace Backend.Migrations
                     Image = table.Column<string>(type: "varchar(64)", nullable: true),
                     Title = table.Column<string>(type: "varchar(191)", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
+                    IsPublished = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -109,6 +110,22 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Content",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    KeyName = table.Column<string>(type: "varchar(64)", nullable: false),
+                    KeyValue = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Content", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Country",
                 columns: table => new
                 {
@@ -191,21 +208,14 @@ namespace Backend.Migrations
                     Sort = table.Column<int>(type: "integer", nullable: false),
                     IsPublished = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    CategoryFaqId = table.Column<long>(type: "bigint", nullable: true)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Faq", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Faq_CategoryArticle_CategoryId",
+                        name: "FK_Faq_CategoryFaq_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "CategoryArticle",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Faq_CategoryFaq_CategoryFaqId",
-                        column: x => x.CategoryFaqId,
                         principalTable: "CategoryFaq",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
@@ -595,6 +605,21 @@ namespace Backend.Migrations
                 column: "Website");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Content_CreatedAt",
+                table: "Content",
+                column: "CreatedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Content_KeyName",
+                table: "Content",
+                column: "KeyName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Content_UpdatedAt",
+                table: "Content",
+                column: "UpdatedAt");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Country_Code",
                 table: "Country",
                 column: "Code");
@@ -653,11 +678,6 @@ namespace Backend.Migrations
                 name: "IX_EmailVerification_UserId",
                 table: "EmailVerification",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Faq_CategoryFaqId",
-                table: "Faq",
-                column: "CategoryFaqId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Faq_CategoryId",
@@ -920,6 +940,9 @@ namespace Backend.Migrations
                 name: "Contact");
 
             migrationBuilder.DropTable(
+                name: "Content");
+
+            migrationBuilder.DropTable(
                 name: "EmailVerification");
 
             migrationBuilder.DropTable(
@@ -944,10 +967,10 @@ namespace Backend.Migrations
                 name: "Team");
 
             migrationBuilder.DropTable(
-                name: "Article");
+                name: "CategoryArticle");
 
             migrationBuilder.DropTable(
-                name: "CategoryArticle");
+                name: "Article");
 
             migrationBuilder.DropTable(
                 name: "CategoryFaq");

@@ -17,6 +17,14 @@ namespace Backend.Models
     [Index(nameof(UpdatedAt))]
     public class Faq
     {
+        public Faq()
+        {
+            this.IsPublished = false;
+            this.Sort = 0;
+            this.CreatedAt = DateTime.Now;
+            this.UpdatedAt = DateTime.Now;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
