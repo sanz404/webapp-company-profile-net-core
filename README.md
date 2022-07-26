@@ -39,7 +39,7 @@
     <li>PostgreSQL 9+</li>
     <li>Git</li>
     <li>Modern Web Browser.</li>
-    <li>Visual Studio Code or Visual Studio for editor.</li>
+    <li>Visual Studio Code or Visual Studio 2017+ for editor.</li>
 </ul>
 <br/>
 
