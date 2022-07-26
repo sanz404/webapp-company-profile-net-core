@@ -35,7 +35,6 @@
 # Minimum Requirements
 <ul>
     <li>.NET Core 3.1 SDK and Runtime</li>
-    <li>Composer 2+</li>
     <li>Node JS 14+ </li>
     <li>PostgreSQL 9+</li>
     <li>Git</li>
